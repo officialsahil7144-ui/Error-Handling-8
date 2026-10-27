@@ -1,15 +1,9 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-FILE="sample.txt"
-
-if [[ -f "$FILE" ]]; then
-    echo "File exists: $FILE"
-    cat "$FILE"
-else
-    echo "File not found: $FILE"
-    echo "Creating the file..."
-    printf 'Linux defensive scripting lab\n' > "$FILE"
-fi
-
-echo "Script completed successfully."
+#!/usr/bin/env bash 
+set -euo pipefail 
+file="${1:-sample.txt}" 
+if [[ ! -f "$file" ]]; then 
+  printf 'Error: file not found: %s\n' "$file" >&2 
+  exit 1 
+fi 
+lines=$(wc -l < "$file") 
+printf 'File: %s\nLines: %s\n' "$file" "$lines" 
